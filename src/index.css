@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#hamburger {
+  span {
+    background-color: white;
+    width: 2em;
+    height: 0.2em;
+    margin: 0.26em 0;
+    display: block;
+    transition: all 0.4s ease;
+    transform-origin: 0 0;
+  }
+}
+
+.diam span:nth-child(1) {
+  transform: rotate(45deg) translate(1px, -1px);
+}
+
+.diam span:nth-child(2) {
+  transform: scaleX(0);
+}
+
+.diam span:nth-child(3) {
+  transform: rotate(-45deg) translate(1px, 0);
+}
+
+.landing {
+  background-image: url("./images/tornado-2.svg");
+  background-size: cover;
+  background-position: center;
+
+  /* background by SVGBackgrounds.com */
+}
+
+body {
+  background-color: #1c3144;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Adjust the color and opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.hovered-link:hover + .underline-div {
+  background-color: #89CAC7; 
+}
+
+.object-fit {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.object-fit:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
