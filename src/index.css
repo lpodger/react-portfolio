@@ -27,7 +27,7 @@
 }
 
 .landing {
-  background-image: url("./images/tornado-2.svg");
+  background-image: url("/images/tornado-2.svg");
   background-size: cover;
   background-position: center;
 
