@@ -94,8 +94,8 @@ export default function Projects({ variants }) {
         "HTML",
         "CSS",
       ],
-      siteLink: "https://lpodger.github.io/garden-shop/",
-      codeLink: "https://github.com/lpodger/garden-shop/",
+      siteLink: "https://lachlanpodger.com/",
+      codeLink: "https://github.com/lpodger/react-portfolio",
       imageSrc: "./images/portfolio.png",
     },
     {
