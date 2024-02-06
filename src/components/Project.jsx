@@ -2,7 +2,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Project({
   title,
@@ -13,7 +13,6 @@ export default function Project({
   codeLink,
   imageSrc,
   index,
-
 }) {
   const modalVariants = {
     open: {
@@ -66,6 +65,8 @@ export default function Project({
   const [isOpen, setIsOpen] = useState(false);
   const mobileBreakpoint = 768;
   const tabletBreakpoint = 1024;
+  const modalRef = useRef();
+  
 
   const openModal = () => {
     setIsOpen(true);
@@ -75,6 +76,27 @@ export default function Project({
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickAway = (event) => {
+      const isClickInsideModal =
+        modalRef.current && modalRef.current.contains(event.target);
+   
+
+      
+      if (!isClickInsideModal) {
+        closeModal();
+      
+      }
+    };
+    // Attach the event listener when the component mounts
+    document.addEventListener("mousedown", handleClickAway);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickAway);
+    };
+  }, [isOpen]);
+
   return (
     <motion.div
       className={`flex flex-col items-center p-4 max-w-lg m-auto pt-20 lg:pt-40 md:max-w-7xl md:justify-between md:gap-20" ${
@@ -83,25 +105,40 @@ export default function Project({
       whileInView={"animate"}
       initial="initial"
       variants={fadeInVariants}
-      viewport={{ once: true, amount: (window.innerWidth < mobileBreakpoint) ? 0.2 : (window.innerWidth < tabletBreakpoint) ? 0.5 : 0.7 }}
+      viewport={{
+        once: true,
+        amount:
+          window.innerWidth < mobileBreakpoint
+            ? 0.2
+            : window.innerWidth < tabletBreakpoint
+            ? 0.5
+            : 0.7,
+      }}
     >
       <motion.div
         variants={imgFadeInVariants}
         className="object-fit max-w-[600px] hover:cursor-pointer hover:scale-110 transition-transform duration-300 ease-in-out lg:opacity-70 hover:opacity-100 rounded relative"
         onClick={openModal}
         whileHover={"hover"}
-  
       >
         <img className="relative" src={imageSrc} alt={title}></img>
       </motion.div>
       <div className="max-w-lg">
-        <motion.h3 className="text-center pb-8 pt-8 text-2xl md:text-3xl font-semibold" variants={fadeInVariants}>
+        <motion.h3
+          className="text-center pb-8 pt-8 text-2xl md:text-3xl font-semibold"
+          variants={fadeInVariants}
+        >
           {title}
         </motion.h3>
 
-        <motion.p className="text-sm md:text-xl" variants={fadeInVariants}>{description}</motion.p>
+        <motion.p className="text-sm md:text-xl" variants={fadeInVariants}>
+          {description}
+        </motion.p>
 
-        <motion.div className="flex gap-2 flex-wrap pt-8 uppercase text-center" variants={fadeInVariants}>
+        <motion.div
+          className="flex gap-2 flex-wrap pt-8 uppercase text-center"
+          variants={fadeInVariants}
+        >
           {skills.map((skill, index) => (
             <span key={index} className="bg-accent p-1 px-2 min-w-[60px]">
               {skill}
@@ -116,8 +153,7 @@ export default function Project({
             duration: 1.2,
             ease: "easeInOut",
           }}
-          animate={{ opacity: 1, y: 0 }} 
-          
+          animate={{ opacity: 1, y: 0 }}
         >
           Learn More
         </motion.button>
@@ -125,6 +161,7 @@ export default function Project({
           {isOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center backdrop">
               <motion.dialog
+              ref={modalRef}
                 className="md:max-w-[900px] md:max-h-[700px] bg-dblue text-white border p-10 block z-[9999] absolute max-h-[100vh] overflow-y-auto"
                 initial={{ opacity: 0, y: "-100%" }}
                 animate={isOpen ? "open" : "closed"}

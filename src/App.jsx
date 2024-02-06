@@ -96,7 +96,7 @@ function App() {
       ) : (
         <>
           <div className="landing">
-            <Header onClick={handleClick} isClicked={isClicked} />
+            <Header onClick={handleClick} isClicked={isClicked} lgScreen={lgScreen} windowWidth={windowWidth} />
             <MobileNav
               ref={ref}
               isClicked={isClicked}

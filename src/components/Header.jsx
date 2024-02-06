@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
 
-export default function Header({ onClick, isClicked }) {
+export default function Header({ onClick, isClicked, lgScreen, windowWidth }) {
   const textVariants = {
     initial: {
       y: 15,
@@ -62,7 +62,7 @@ export default function Header({ onClick, isClicked }) {
             </Link>
           </li>
           <li className="hover:text-accent hover:cursor-pointer transition duration-300">
-            <Link to="about" smooth={true} duration={500} offset={-500}>
+            <Link to="about" smooth={true} duration={500}  offset={windowWidth < lgScreen ? -300 : -600}>
               About
             </Link>
           </li>
